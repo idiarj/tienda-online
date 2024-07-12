@@ -5,15 +5,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "Tienda Online",
+    "Manejo de Frameworks",
+    "React"
+  ],
+  "author": "Idiar Chacin, Angelina Pineda",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "express": "^4.19.2",
-    "express-session": "^1.18.0",
-    "pg": "^8.12.0",
-    "zod": "^3.23.8"
-  }
+  "description": "Proyecto Final Periodico Digital Ingenieria de Software II"
 }

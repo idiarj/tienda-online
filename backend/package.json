@@ -12,5 +12,12 @@
   ],
   "author": "Idiar Chacin, Angelina Pineda",
   "license": "ISC",
-  "description": "Proyecto Final Periodico Digital Ingenieria de Software II"
+  "description": "Proyecto Final Manejo de Frameworks II",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "pg": "^8.12.0"
+  }
 }

@@ -3,8 +3,6 @@ import { CryptManager } from "../sub-sistemas/security/CryptManager.js";
 
 export class userModel{
 
-
-
     static async getAllUsers(){
         try{
         const result = await pgFrameworks.exeQuery({key: 'select'})
@@ -116,7 +114,7 @@ export class userModel{
      *                               En caso de error, el objeto tendrá una propiedad `success` con
      *                               valor `false` y detalles del error en `message` y `error`.
      */
-    static async registerUser({nombre, apellido, cedula, username, correo, password}){ 
+    static async registerUser({nombre, apellido, username, correo, password}){ 
 
         const hashedPassword = await CryptManager.encriptarData({data: password});
         const client = await pgFrameworks.beginTransaction()
@@ -128,7 +126,7 @@ export class userModel{
             console.log(`insertando la persona ${nombre} ${apellido}`);
             const [{
                 id_persona
-            }] = await pgFrameworks.exeQuery({key: 'insert_persona', params: [nombre, apellido, cedula], client});
+            }] = await pgFrameworks.exeQuery({key: 'insert_persona', params: [nombre, apellido], client});
             console.log(`insertando el usuario ${username} ${correo} ${id_persona}`);
             await pgFrameworks.exeQuery({key: 'insert_username', params:[username, correo, hashedPassword, id_persona], client});
 
@@ -137,7 +135,7 @@ export class userModel{
         } catch (error) {
             await pgFrameworks.rollbackTransaction(client)
             console.log('error al insertar el usuario:', error);
-            client.release();
+            // client.release();
             return { success: false, message: "Error al registrar el usuario", error };
         }
     }

@@ -1,8 +1,6 @@
-
-import { iSessionWrapper } from "../../../data/iSession/iSession.js"
-// import users from "../../../data/json-data/users.json" assert { type: "json" }
-import { loginValidation } from "../../../data/iValidation/iValidation.js"
-import { userModel } from "../../../models/userModel.js"
+import { iSessionWrapper } from "../instances/iSessionManager/iSessionManager.js"
+import { userModel } from "../models/userModel.js"
+import { loginValidation } from "../instances/iValidator/iValidator.js"
 
 export class loginController {
 
@@ -20,11 +18,11 @@ export class loginController {
             console.log(result.data)
             const {username, password} = result.data
             console.log(`Usuario: ${username}, Password: ${password}`)
-            // const userFound = users.find(u => u.username === username && u.password === password)
-            // console.log(userFound)
 
             const validUser = await userModel.verifyUser({user: username})
+            if(!validUser) return res.status(400).json({error: 'Este nombre de usuario no existe.'})
             const validPassword = await userModel.verifyPassword({username, password_user: password})
+            if(!validPassword) return res.status(400).json({error: 'La contrasena es incorrecta, intente de nuevo.'})
             console.log('el usuario es valido?', validUser)
             console.log('la contrasena es valida?', validPassword)
             console.log(`valid password es`)
@@ -32,8 +30,8 @@ export class loginController {
             if(validUser.error || validPassword.error) return res.status(400).json({
                 error: 'Hubo un error interno, disculpe. (Los desarrolladores son idiotas)'
             })
-            if(!validUser) return res.status(400).json({error: 'Este nombre de usuario no existe.'})
-            if(!validPassword) return res.status(400).json({error: 'La contrasena es incorrecta, intente de nuevo.'})
+            
+            
             const [user] = await userModel.getUser({username})
             console.log(user)
             await iSessionWrapper.createSession({req, user})

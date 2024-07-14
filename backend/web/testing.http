@@ -1,0 +1,25 @@
+### Ver home
+GET http://localhost:3000/home
+
+
+### Logear usuario
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "username": "Idiarj",
+    "password": "16012004"
+}
+
+
+### Registrar usuario
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "nombre": "",
+    "apellido": "",
+    "username": "",
+    "correo": "",
+    "password": ""
+}

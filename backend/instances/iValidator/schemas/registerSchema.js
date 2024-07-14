@@ -28,22 +28,6 @@ export const userRegisterSchema = z.object({
             message: `El apellido no puede tener mas de 15 caracteres.`
         }
     ),
-cedula: z.number({
-        required_error: 'El campo cedula es requerido',
-        message: 'El campo cedula debe ser un numero.'
-    }).positive({
-        message: 'La cedula debe ser un numero positivo.'
-    }).int({
-        message: 'La cedula debe ser un numero entero.'
-    }).min(1000000,
-        {
-            message: `La cedula debe tener almenos 7 digitos.`
-        }
-    ).max(99999999,
-        {
-            message: `La cedula no puede tener mas de 8 digitos.`
-        }
-    ),
     username: z.string({
             required_error: 'El campo user es requerido',
             message: 'El usuario debe ser un string'

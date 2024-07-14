@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { loginController } from '../../controllers/sessions-controllers/loginController.js'
+import { loginController } from '../controllers/loginController.js'
 /**
  * @type {Router} - Enrutador para las peticiones POST y GET del endpoint /login.
  */

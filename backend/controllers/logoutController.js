@@ -1,4 +1,4 @@
-import { iSessionWrapper } from "../../../data/iSession/iSession.js";
+import { iSessionWrapper } from "../instances/iSessionManager/iSessionManager.js";
 
 export class logoutController{
 

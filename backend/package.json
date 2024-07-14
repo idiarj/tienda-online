@@ -1,9 +1,10 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "type": "module",
+  "main": "app/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --exec node app/index.js"
   },
   "keywords": [
     "Tienda Online",
@@ -12,14 +13,16 @@
   ],
   "author": "Idiar Chacin, Angelina Pineda",
   "license": "ISC",
-  "description": "Proyecto Final Manejo de Frameworks II",
+  "description": "Proyecto Final Manejo de Frameworks",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
-    "nodemon": "^3.1.4",
     "pg": "^8.12.0",
     "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }

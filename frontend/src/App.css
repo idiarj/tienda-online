@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,4 +39,22 @@
 
 .read-the-docs {
   color: #888;
+} */
+nav {
+  background-color: #333;
+  top: 0;
+  width: 100%;
+}
+
+nav a {
+  color: white;
+  display: inline-block;
+  padding: 14px 20px;
+  text-align: center;
+  text-decoration: none;
+}
+
+nav a:hover {
+  background-color: #ddd;
+  color: black;
 }

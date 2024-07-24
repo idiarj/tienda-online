@@ -1,17 +1,28 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom' // Import the Router component
 import Testing from './components/testing'
+import Navbar from './components/navbar';
+import Productos from './views/Productos';
+import Vender from './views/Vender';
+import Carrito from './views/Carrito';
 import './App.css'
 
 function App() {
 
   return (
+    <>
+    
     <Router>
+      <Navbar />
       <Routes>
-        <Route path='/testing' Component={Testing}>
-        </Route>
+        <Route path='/testing' Component={Testing}/>
+        <Route path="/Productos" Component={Productos} />
+        <Route path="/Vender" Component={Vender} />
+        <Route path="/Carrito" Component={Carrito} />
       </Routes>
     </Router>
+    </>
+    
   )
 }
 

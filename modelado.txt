@@ -1,8 +1,16 @@
 CREATE SCHEMA IF NOT EXISTS "public";
 
+CREATE SEQUENCE "public".deporte_id_deporte_seq AS integer START WITH 1 INCREMENT BY 1;
+
 CREATE SEQUENCE "public".factura_id_factura_seq AS integer START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".factura_id_usuario_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".imagen_id_imagen_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".imagen_id_producto_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".imagen_nom_imagen_seq AS integer START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".marca_id_marca_seq AS integer START WITH 1 INCREMENT BY 1;
 
@@ -14,6 +22,8 @@ CREATE SEQUENCE "public".producto_factura_id_prod_fac_seq AS integer START WITH 
 
 CREATE SEQUENCE "public".producto_factura_id_producto_seq AS integer START WITH 1 INCREMENT BY 1;
 
+CREATE SEQUENCE "public".producto_id_deporte_seq AS integer START WITH 1 INCREMENT BY 1;
+
 CREATE SEQUENCE "public".producto_id_marca_seq AS integer START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".producto_id_producto_seq AS integer START WITH 1 INCREMENT BY 1;
@@ -21,6 +31,18 @@ CREATE SEQUENCE "public".producto_id_producto_seq AS integer START WITH 1 INCREM
 CREATE SEQUENCE "public".usuario_id_persona_seq AS integer START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".usuario_id_usuario_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE  TABLE "public".deporte ( 
+	id_deporte           serial  NOT NULL  ,
+	nom_deporte          varchar    ,
+	CONSTRAINT pk_deporte PRIMARY KEY ( id_deporte )
+ );
+
+CREATE  TABLE "public".imagen_test ( 
+	id_imagen            serial    ,
+	nom_imagen           varchar    ,
+	data_imagen          bytea    
+ );
 
 CREATE  TABLE "public".marca ( 
 	id_marca             serial  NOT NULL  ,
@@ -39,10 +61,11 @@ CREATE  TABLE "public".producto (
 	id_producto          serial  NOT NULL  ,
 	nom_producto         varchar  NOT NULL  ,
 	id_marca             serial  NOT NULL  ,
-	img_producto         bytea    ,
 	precio               real    ,
+	id_deporte           serial  NOT NULL  ,
 	CONSTRAINT pk_producto PRIMARY KEY ( id_producto ),
-	CONSTRAINT fk_producto_marca FOREIGN KEY ( id_marca ) REFERENCES "public".marca( id_marca )   
+	CONSTRAINT fk_producto_marca FOREIGN KEY ( id_marca ) REFERENCES "public".marca( id_marca )   ,
+	CONSTRAINT fk_producto_deporte FOREIGN KEY ( id_deporte ) REFERENCES "public".deporte( id_deporte )   
  );
 
 CREATE  TABLE "public".usuario ( 
@@ -61,6 +84,15 @@ CREATE  TABLE "public".factura (
 	fecha                date    ,
 	CONSTRAINT pk_factura PRIMARY KEY ( id_factura ),
 	CONSTRAINT fk_factura_usuario FOREIGN KEY ( id_usuario ) REFERENCES "public".usuario( id_usuario )   
+ );
+
+CREATE  TABLE "public".imagen ( 
+	id_imagen            serial  NOT NULL  ,
+	nom_imagen           varchar DEFAULT nextval('imagen_nom_imagen_seq'::regclass) NOT NULL  ,
+	id_producto          serial  NOT NULL  ,
+	data_imagen          bytea    ,
+	CONSTRAINT pk_imagen PRIMARY KEY ( id_imagen ),
+	CONSTRAINT fk_imagen_producto FOREIGN KEY ( id_producto ) REFERENCES "public".producto( id_producto )   
  );
 
 CREATE  TABLE "public".producto_factura ( 

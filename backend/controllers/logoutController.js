@@ -7,7 +7,7 @@ export class logoutController{
         if (!iSessionWrapper.verifySession(req)) {
             return res.json({ mensaje: 'No hay sesion activa' });
         }
-        const result = await iSessionWrapper.closeSession(req);
+        const result = await iSessionWrapper.closeSession(req, res);
         return res.json(result);
     } catch (err) {
         return res.json({ err });

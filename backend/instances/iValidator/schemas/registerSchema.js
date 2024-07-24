@@ -40,7 +40,6 @@ export const userRegisterSchema = z.object({
                 message: `El nombre de usuario no puede tener mas de 15 caracteres.`
             }
         ),
-    // profiles: z.array(z.string().min(3).max(20)).min(1).default(['Admin', 'User']),
     correo: z.string(
             {
                 required_error: 'El campo email es requerido',

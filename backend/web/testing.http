@@ -11,15 +11,18 @@ Content-Type: application/json
     "password": "16012004"
 }
 
+### Cerrar sesion
+POST http://localhost:3000/logout
+
 
 ### Registrar usuario
 POST http://localhost:3000/register
 Content-Type: application/json
 
 {
-    "nombre": "",
-    "apellido": "",
-    "username": "",
-    "correo": "",
-    "password": ""
+    "nombre": "Mario",
+    "apellido": "Gonzalez",
+    "username": "MarioG",
+    "correo": "lespongo20@gmail.com",
+    "password": "lesvoyaponer20"
 }

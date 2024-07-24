@@ -83,6 +83,23 @@ export class userModel{
         }
     }
 
+    static async verifyEmail({correo}){
+        console.log('------VERIFY EMAIL-------')
+        try{
+            const key = 'verifyEmail'
+            const params = [correo]
+            const resultSet = await pgFrameworks.exeQuery({key, params})
+
+            if(resultSet && resultSet.length > 0){
+                return {success: true, resultSet}
+            }else{
+                return {success: false, error: 'Este correo no existe.'}
+            }
+        }catch(error){
+            return {success: false, error: error.message}
+        }
+    }
+
     /**
      * Registra un nuevo usuario en la base de datos. Este método asume que el objeto proporcionado
      * contiene toda la información necesaria para crear un nuevo registro de usuario, incluyendo
@@ -106,8 +123,6 @@ export class userModel{
         const hashedPassword = await CryptManager.encriptarData({data: password});
         const client = await pgFrameworks.beginTransaction()
 
-
-
         try {
             console.log('entre en el try de user model registeruser')
             console.log(`insertando la persona ${nombre} ${apellido}`);
@@ -118,12 +133,11 @@ export class userModel{
             await pgFrameworks.exeQuery({key: 'insert_username', params:[username, correo, hashedPassword, id_persona], client});
 
             await pgFrameworks.commitTransaction(client)
-            return { success: true, message: "Usuario registrado con éxito" };
+            return { success: true, mensaje: "Usuario registrado con éxito" };
         } catch (error) {
             await pgFrameworks.rollbackTransaction(client)
             console.log('error al insertar el usuario:', error);
-            // client.release();
-            return { success: false, message: "Error al registrar el usuario", error };
+            return { success: false, error: "Error al registrar el usuario", detalle: error.message };
         }
     }
 }

@@ -1,6 +1,7 @@
 {
     "verifyUser": "SELECT id_usuario AS userId, nom_usuario AS username, email_usuario AS email FROM usuario WHERE LOWER(nom_usuario) = LOWER($1)",
     "verifyPassword": "SELECT contra_usuario AS contraseña FROM usuario where nom_usuario = $1",
+    "verifyEmail": "SELECT email_usuario AS email FROM usuario WHERE LOWER(email_usuario) = LOWER($1)",
     "insert_persona": "INSERT INTO persona (nom_persona, ape_persona) VALUES ($1, $2) RETURNING id_persona",
     "insert_username": "INSERT INTO usuario (nom_usuario, email_usuario, contra_usuario, id_persona) VALUES ($1, $2, $3, $4)"
 }

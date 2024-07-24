@@ -1,12 +1,12 @@
-import { pgFrameworks } from "../instances/iPgManager/iPgManger.js";
+import { pgFrameworks } from "../instances/iPgManager/iPgManager.js";
 import { CryptManager } from "../sub-sistemas/security/CryptManager.js";
 
 export class userModel{
 
     static async getAllUsers(){
         try{
-        const result = await pgFrameworks.exeQuery({key: 'select'})
-        return result
+        const resultSet = await pgFrameworks.exeQuery({key: 'select'})
+        return resultSet
         }catch(error){
             return error
         }
@@ -25,76 +25,63 @@ export class userModel{
 
 
     /**
-     * Metodo estatico y asincrono para verificar un usuario existe en la base de datos.
+     * Verifica si un usuario existe en la base de datos.
+     * 
      * @param {String} param.user - Usuario a verificar.
-     * @returns {Promise<String>} - Devuelve el usuario si existe, si no devuelve undefined.
+     * @returns {Promise<Object>} - Devuelve devuelve un objeto con la propiedad success en true y el resultado de la consulta en resultSet si el usuario existe
+     *                              sino, devuelve un objeto con success en false y un mensaje de error.
      */
-    static async verifyUser({ user }){
+    static async verifyUser({ username }){
         console.log('------VERIFY USER-------')
         try {
+            const key = 'verifyUser'
+            const params = [username]
+            const resultSet = await pgFrameworks.exeQuery({key, params})
 
-            const result = await pgFrameworks.exeQuery({key: 'verifyUser', params: [user]})
-            // console.log(result)
+            if(resultSet && resultSet.length > 0){
 
-            if(result && result.length > 0){
-
-                const [ {username} ] = result
-                console.log(username)
-                return username
+                return {success: true, resultSet}
 
             }else{
-                console.log('usuario no valido')
-                return false
-                
+
+                return {success: false, error: 'Este nombre de usuario no existe.'}
+
             }
         } catch (error) {
-            return {error}
+            return {success: false, error: error.message}
         }
     }
 
-    static async verifyPassword({username, password_user}){
+
+    /**
+     * Verifica si la contraseña proporcionada coincide con la contraseña del usuario en la base de datos.
+     * 
+     * @param {Object} params - El objeto de parámetros.
+     * @param {string} params.username - El nombre de usuario del usuario cuya contraseña se va a verificar.
+     * @param {string} params.password - La contraseña proporcionada por el usuario para verificar.
+     * @returns {Promise<Object>} Una promesa que se resuelve en un objeto que contiene una propiedad de éxito que indica el resultado de la verificación de la contraseña.
+     */
+    static async verifyPassword({username, password}){
         console.log('------VERIFY PASSWORD-------')
         try{
-            console.log(password_user)
-            const result = await pgFrameworks.exeQuery({key: 'verifyPassword', params: [username]})
-            // console.log(result)
+            console.log(password)
+            const key = 'verifyPassword'
+            const params = [username]
+            const resultSet = await pgFrameworks.exeQuery({key, params})
+            // console.log(resultSet)
 
-            if(result && result.length > 0){
-                const [ {password} ] = result
-                return await CryptManager.compareData({hashedData : password, toCompare: password_user})
-            }else{
-                return false
+            if(resultSet && resultSet.length > 0){
+                const [ {contraseña} ] = resultSet
+                const success = await CryptManager.compareData({hashedData : contraseña, toCompare: password})
+                if(!success) return {success, error: 'Contraseña invalida.'}
+                
+                return {success, mensaje: 'Contraseña valida'}
             }
         }catch(error){
             console.log(error)
-            return {error}
+            return {success: false, error}
         }
     }
-
-    static async getUsernameId({user}){
-        try{
-            const key = 'getUserId'
-            const params = [user]
-            const [{id_usuario}] = await pgFrameworks.exeQuery({key, params})
-            return id_usuario
-        }catch(error){
-            return {error}
-        }
-    }
-
-    static async getPersonId({id}){
-        try{
-            const key = 'getUserId'
-            const params = [user]
-            const [{id_usuario}] = await pgFrameworks.exeQuery({key, params})
-            return id_usuario
-        }catch(error){
-            return {error}
-        }
-    }
-
-    
-
 
     /**
      * Registra un nuevo usuario en la base de datos. Este método asume que el objeto proporcionado

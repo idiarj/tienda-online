@@ -18,7 +18,7 @@ async createSession({req, user}){
         console.log(user)
         for(let key in user){
             session[key] = user[key];
-            console.log(`creare sesion con ${session[key]}`);
+            console.log(`creare sesion con la key ${key} y con el valor ${session[key]}`);
         }
         return new Promise((resolve, reject) => {
             session.save(err => {

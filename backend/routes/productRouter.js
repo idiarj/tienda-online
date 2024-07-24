@@ -3,4 +3,3 @@ import { Router } from "express";
 
 export const productRouter = Router()
 productRouter.post('/', productController.productPostController)
-productRouter.post('/imagen', productController.addProductImageController)

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ifetchWrapper } from '../../FetchWrapper.js';
 
 function Testing() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -12,11 +13,23 @@ function Testing() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    const formData = new FormData();
+    formData.append('image', selectedImage);
+    // formData.forEach((value, key) => {
+    //   console.log(`${key}: ${value}`);
+    // });
+
+    const response = await ifetchWrapper.fetchMethod({
+      endpoint: 'products/imagen',
+      method: 'post',
+      body: formData
+    })
+    if(response.ok){
     console.log(selectedImage);
     console.log(imagePreviewUrl)
+    }
   };
 
   return (

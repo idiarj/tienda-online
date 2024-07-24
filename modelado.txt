@@ -1,0 +1,73 @@
+CREATE SCHEMA IF NOT EXISTS "public";
+
+CREATE SEQUENCE "public".factura_id_factura_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".factura_id_usuario_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".marca_id_marca_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".persona_id_persona_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".producto_factura_id_factura_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".producto_factura_id_prod_fac_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".producto_factura_id_producto_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".producto_id_marca_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".producto_id_producto_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".usuario_id_persona_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE "public".usuario_id_usuario_seq AS integer START WITH 1 INCREMENT BY 1;
+
+CREATE  TABLE "public".marca ( 
+	id_marca             serial  NOT NULL  ,
+	nom_marca            varchar    ,
+	CONSTRAINT pk_marca PRIMARY KEY ( id_marca )
+ );
+
+CREATE  TABLE "public".persona ( 
+	id_persona           serial  NOT NULL  ,
+	nom_persona          varchar    ,
+	ape_persona          varchar    ,
+	CONSTRAINT pk_persona PRIMARY KEY ( id_persona )
+ );
+
+CREATE  TABLE "public".producto ( 
+	id_producto          serial  NOT NULL  ,
+	nom_producto         varchar  NOT NULL  ,
+	id_marca             serial  NOT NULL  ,
+	img_producto         bytea    ,
+	precio               real    ,
+	CONSTRAINT pk_producto PRIMARY KEY ( id_producto ),
+	CONSTRAINT fk_producto_marca FOREIGN KEY ( id_marca ) REFERENCES "public".marca( id_marca )   
+ );
+
+CREATE  TABLE "public".usuario ( 
+	id_usuario           serial  NOT NULL  ,
+	nom_usuario          varchar    ,
+	email_usuario        varchar    ,
+	contra_usuario       varchar    ,
+	id_persona           serial  NOT NULL  ,
+	CONSTRAINT pk_usuario PRIMARY KEY ( id_usuario ),
+	CONSTRAINT fk_usuario_persona FOREIGN KEY ( id_persona ) REFERENCES "public".persona( id_persona )   
+ );
+
+CREATE  TABLE "public".factura ( 
+	id_factura           serial  NOT NULL  ,
+	id_usuario           serial  NOT NULL  ,
+	fecha                date    ,
+	CONSTRAINT pk_factura PRIMARY KEY ( id_factura ),
+	CONSTRAINT fk_factura_usuario FOREIGN KEY ( id_usuario ) REFERENCES "public".usuario( id_usuario )   
+ );
+
+CREATE  TABLE "public".producto_factura ( 
+	id_prod_fac          serial  NOT NULL  ,
+	id_factura           serial  NOT NULL  ,
+	id_producto          serial  NOT NULL  ,
+	CONSTRAINT pk_producto_factura PRIMARY KEY ( id_prod_fac ),
+	CONSTRAINT fk_producto_factura_factura FOREIGN KEY ( id_factura ) REFERENCES "public".factura( id_factura )   ,
+	CONSTRAINT fk_producto_factura_producto FOREIGN KEY ( id_producto ) REFERENCES "public".producto( id_producto )   
+ );

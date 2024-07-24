@@ -14,7 +14,7 @@ function Testing() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes implementar la lógica para enviar la imagen al servidor o procesarla como necesites
+    
     console.log(selectedImage);
     console.log(imagePreviewUrl)
   };

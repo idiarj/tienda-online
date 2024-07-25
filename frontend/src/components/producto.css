@@ -3,12 +3,14 @@
     border-radius: 8px;
     padding: 16px;
     margin: 16px;
-    text-align: center;
     background-color: #f9f9f9;
+    display: flex;
+    justify-content: start;
+    gap: 20px;
   }
   
   .producto-imagen {
-    max-width: 100%;
+    max-width: 200px;
     height: auto;
     border-radius: 8px;
   }

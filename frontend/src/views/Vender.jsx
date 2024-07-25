@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { ProductContext } from '../context/ProductContext';
 import Producto from '../components/producto';
-import './vender.css'; // Asegúrate de tener estilos para el modal
+import './vender.css'; 
 
 const Vender = () => {
   const { getProducts, addProduct, editProduct } = useContext(ProductContext);
@@ -69,7 +69,7 @@ const Vender = () => {
     <div>
       <h1>Vender</h1>
       <button onClick={() => setIsAddModalOpen(true)} className="agregar-producto-btn">Agregar Producto</button>
-      <div className="productos-lista">
+      <div className="productos-lista-vendedor">
         {products.map(product => (
           <Producto key={product.id} id={product.id} vista="vender" onEdit={openEditModal} />
         ))}

@@ -1,6 +1,6 @@
 const productos = [
   {
-    "imagen": "https://example.com/product1.jpg",
+    "imagen": "https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68",
     "id": "1",
     "nombre": "Producto A",
     "descripcion": "Descripción del Producto A",
@@ -11,7 +11,7 @@ const productos = [
     "cantidad": 100
   },
   {
-    "imagen": "https://example.com/product2.jpg",
+    "imagen": "https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68",
     "id": "2",
     "nombre": "Producto B",
     "descripcion": "Descripción del Producto B",
@@ -22,7 +22,7 @@ const productos = [
     "cantidad": 50
   },
   {
-    "imagen": "https://example.com/product3.jpg",
+    "imagen": "https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68",
     "id": "3",
     "nombre": "Producto C",
     "descripcion": "Descripción del Producto C",
@@ -33,7 +33,7 @@ const productos = [
     "cantidad": 0
   },
   {
-    "imagen": "https://example.com/product4.jpg",
+    "imagen": "https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68",
     "id": "4",
     "nombre": "Producto D",
     "descripcion": "Descripción del Producto D",
@@ -44,7 +44,7 @@ const productos = [
     "cantidad": 30
   },
   {
-    "imagen": "https://example.com/product5.jpg",
+    "imagen": "https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68",
     "id": "5",
     "nombre": "Producto E",
     "descripcion": "Descripción del Producto E",
@@ -55,7 +55,7 @@ const productos = [
     "cantidad": 75
   },
   {
-    "imagen": "https://example.com/product6.jpg",
+    "imagen": "https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68",
     "id": "6",
     "nombre": "Producto F",
     "descripcion": "Descripción del Producto F",
@@ -66,7 +66,7 @@ const productos = [
     "cantidad": 20
   },
   {
-    "imagen": "https://example.com/product7.jpg",
+    "imagen": "https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68",
     "id": "7",
     "nombre": "Producto G",
     "descripcion": "Descripción del Producto G",
@@ -77,7 +77,7 @@ const productos = [
     "cantidad": 40
   },
   {
-    "imagen": "https://example.com/product8.jpg",
+    "imagen": "https://fastly.picsum.photos/id/10/2500/1667.jpg?hmac=J04WWC_ebchx3WwzbM-Z4_KC_LeLBWr5LZMaAkWkF68",
     "id": "8",
     "nombre": "Producto H",
     "descripcion": "Descripción del Producto H",
@@ -88,7 +88,7 @@ const productos = [
     "cantidad": 0
   },
   {
-    "imagen": "https://example.com/product9.jpg",
+    "imagen": "https://fastly.picsum.photos/id/26/4209/2769.jpg?hmac=vcInmowFvPCyKGtV7Vfh7zWcA_Z0kStrPDW3ppP0iGI",
     "id": "9",
     "nombre": "Producto I",
     "descripcion": "Descripción del Producto I",
@@ -99,7 +99,7 @@ const productos = [
     "cantidad": 60
   },
   {
-    "imagen": "https://example.com/product10.jpg",
+    "imagen": "https://fastly.picsum.photos/id/20/3670/2462.jpg?hmac=CmQ0ln-k5ZqkdtLvVO23LjVAEabZQx2wOaT4pyeG10I",
     "id": "10",
     "nombre": "Producto J",
     "descripcion": "Descripción del Producto J",

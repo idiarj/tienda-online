@@ -1,0 +1,117 @@
+/* Estilos para el contenedor del registro */
+.register-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  /* Estilos para el encabezado del registro */
+  .register-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .register-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+  
+  /* Título del proyecto */
+  .register-title {
+    font-size: 34px;
+    font-weight: bold;
+  }
+  
+  .register-title h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  /* Estilos para el formulario de registro */
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Contenedor para campos nombre y apellido */
+  .register-name-fields {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .register-name-fields input {
+    flex: 1;
+  }
+  
+  .register-form input {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+    background-color: #f9f9f9;
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el ancho total */
+  }
+  
+  /* Estilos para el botón de registro */
+  .register-form button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color:  #007bff;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .register-form button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .register-form button:hover:enabled {
+    background-color: #0056b3;
+  }
+  
+  /* Estilos para mensajes de error */
+  .register-error {
+    color: red;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para el pie del formulario */
+  .register-footer {
+    margin-top: 20px;
+  }
+  
+  .register-footer a {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .register-footer a:hover {
+    color: #0056b3;
+  }
+  
+  /* Estilos globales para párrafos */
+  p {
+    color: black;
+  }

@@ -75,7 +75,10 @@ const Login = () => {
                     </div>
                 )
             }
-            <label className='homeLabel' onClick={()=>{navigate('/home')}}>Haz click para volver a Home</label>
+            <label className='homeLabel' onClick={()=>{navigate('/home')}}>Regresar a Home.</label>
+            <label className='registerLabel' onClick={()=>{navigate('/register')}}>
+                Registrate.
+            </label>
         </section>
        
     );

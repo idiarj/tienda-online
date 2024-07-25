@@ -8,5 +8,6 @@
     "getAllProductsLoged": "SELECT id_producto AS productId, nom_producto AS producto, cantidad, precio, nom_deporte AS deporte, nom_marca AS marca, img_producto as imagen FROM producto p INNER JOIN marca m ON p.id_marca = m.id_marca INNER JOIN deporte d ON p.id_deporte = d.id_deporte WHERE p.id_producto NOT IN (SELECT id_producto FROM producto WHERE id_usuario = $1);",
     "getAllProductsNotLoged": "SELECT id_producto AS productId, nom_producto AS producto, cantidad, precio, nom_deporte AS deporte, nom_marca AS marca, img_producto as imagen FROM producto p INNER JOIN marca m ON p.id_marca = m.id_marca INNER JOIN deporte d ON p.id_deporte = d.id_deporte",
     "getDeportes": "SELECT * FROM deporte",
-    "getMarcas": "SELECT * FROM marca"
+    "getMarcas": "SELECT * FROM marca",
+    "deleteProduct": "DELETE FROM producto WHERE id_producto = $1 RETURNING id_producto, nom_producto, id_usuario"
 }

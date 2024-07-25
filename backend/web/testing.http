@@ -40,3 +40,6 @@ Content-Type: application/json
 
 ### Ver todos los productos
 GET http://localhost:3000/products
+
+### Eliminar producto
+DELETE http://localhost:3000/products/1

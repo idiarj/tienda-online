@@ -50,34 +50,27 @@ export class productController{
             })
         }
     }
-    static async addProductImageController(req, res){
+    
+    static async deleteProduct(req, res){
         try {
-            console.log(`estoy recibiendo`, req.body)
-            // const {error} = imageValidation.validateTotal(req.body)
+            const {userid} = req.session
+            const {productId} = req.params
+            const deletedProduct = await ProductModel.deleteProduct({
+                userId: userid,
+                productId
+            })
 
-            // if(error) return res.status(500).json({
-            //     mensaje: 'Error en las validaciones',
-            //     error: error.issues[0].message
-            // })
+            if(deletedProduct.success) return res.status(400).json({
+                error: deletedProduct
+            })
 
-            // const {name, data} = req.body
-            // const imagen = await ProductModel.addImage({
-            //     name,
-            //     data
-            // })
+            return res.status(200).json({
+                mensaje: deletedProduct.mensaje,
+                error: deletedProduct.error
+            })
 
-            // if(!imagen.success) return res.status(500).json({
-            //     mensaje: 'Error al intentar subir la imagen.',
-            //     error: imagen.error
-            // })
-
-            // return res.status(200).json({
-            //     mensaje: 'Imagen subida con exito.',
-            //     data: imagen.resultSet
-            // })
         } catch (error) {
             return res.status(500).json({
-                mensaje: 'Error interno del servidor',
                 error: error.message
             })
         }

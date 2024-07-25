@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { CartContext } from '../context/CartContext';
-import Producto from '../components/producto';
-import Navbar from '../components/navbar.jsx'
+import { CartContext } from '../../context/CartContext.jsx';
+import Producto from '../../components/producto/producto.jsx';
+import Navbar from '../../components/Navbar/navbar.jsx'
 
 const Carrito = () => {
   const { getCartProducts, removeFromCart } = useContext(CartContext);

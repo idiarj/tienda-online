@@ -1,6 +1,6 @@
 import  { useContext, useState } from 'react';
-import { ProductContext } from '../context/ProductContext';
-import { CartContext } from '../context/CartContext';
+import { ProductContext } from '../../context/ProductContext';
+import { CartContext } from '../../context/CartContext';
 import './producto.css';
 
 const Producto = ({ id, item, vista, onEdit, onDelete }) => {

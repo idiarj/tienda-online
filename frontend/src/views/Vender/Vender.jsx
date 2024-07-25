@@ -1,9 +1,9 @@
 import  { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ProductContext } from '../context/ProductContext';
-import Producto from '../components/producto';
+import { ProductContext } from '../../context/ProductContext.jsx';
+import Producto from '../../components/producto/producto.jsx';
 import './vender.css';
-import Navbar from '../components/navbar.jsx'
+import Navbar from '../../components/Navbar/navbar.jsx'
 
 const Vender = () => {
   const { getProducts, addProduct, editProduct } = useContext(ProductContext);

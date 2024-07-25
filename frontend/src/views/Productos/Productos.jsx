@@ -1,9 +1,9 @@
 import  { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ProductContext } from '../context/ProductContext';
-import Producto from '../components/producto';
+import { ProductContext } from '../../context/ProductContext.jsx';
+import Producto from '../../components/producto/producto.jsx';
 import './productos.css';
-import Navbar from '../components/navbar.jsx'
+import Navbar from '../../components/Navbar/navbar.jsx'
 
 const Productos = () => {
   const { categoria } = useParams();

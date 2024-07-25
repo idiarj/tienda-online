@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react';
+import  { useContext, useState } from 'react';
 import { ProductContext } from '../context/ProductContext';
 import Producto from '../components/producto';
-import './vender.css'; 
+import './vender.css';
+import Navbar from '../components/navbar.jsx'
 
 const Vender = () => {
   const { getProducts, addProduct, editProduct } = useContext(ProductContext);
@@ -66,7 +67,9 @@ const Vender = () => {
   };
 
   return (
-    <div>
+    <>
+    <Navbar/>
+      <div>
       <h1>Vender</h1>
       <button onClick={() => setIsAddModalOpen(true)} className="agregar-producto-btn">Agregar Producto</button>
       <div className="productos-lista-vendedor">
@@ -241,6 +244,7 @@ const Vender = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

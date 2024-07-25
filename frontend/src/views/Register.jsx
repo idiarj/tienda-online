@@ -30,7 +30,7 @@ const Register = () => {
             })
             const data = await response.json()
             if(!response.ok){
-                setError(data.)
+                setError(data.error)
             }
         } catch (error) {
             console.error('Error al registrar el usuario:', error.response.data);

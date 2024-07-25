@@ -1,8 +1,9 @@
-import React, { useContext, useState } from 'react';
+import  { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ProductContext } from '../context/ProductContext';
 import Producto from '../components/producto';
 import './productos.css';
+import Navbar from '../components/navbar.jsx'
 
 const Productos = () => {
   const { categoria } = useParams();
@@ -47,7 +48,9 @@ const Productos = () => {
   const filteredProducts = applyFilters();
 
   return (
-    <div className="productos-container">
+    <>
+    <Navbar/>
+     <div className="productos-container">
       <div className="sidebar">
         <h2>Categorías</h2>
         <ul>
@@ -111,6 +114,7 @@ const Productos = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

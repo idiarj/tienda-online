@@ -7,6 +7,15 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
+    "username": "Vicaag6",
+    "password": "messi2003"
+}
+
+### Logear usuario
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
     "username": "Idiarj",
     "password": "16012004"
 }
@@ -14,39 +23,35 @@ Content-Type: application/json
 ### Cerrar sesion
 POST http://localhost:3000/logout
 
-
-### Registrar usuario
-POST http://localhost:3000/register
-Content-Type: application/json
-
-{
-    "nombre": "Mario",
-    "apellido": "Gonzalez",
-    "username": "MarioG",
-    "correo": "lespongo20@gmail.com",
-    "password": "lesvoyaponer20"
-}
-
-
-
 #### Crear producto
 POST http://localhost:3000/products
 Content-Type: application/json
 
 {
     "nombre_producto": "Franela Local Manchester City",
-    "precio": "60$",
+    "precio": 60,
     "descripcion": "Franela Local Manchester City 2023/2024",
-    "id_usuario": 1,
     "id_marca": 3,
-    "id_marca": 1,
+    "id_deporte": 1,
+    "cantidad": 10,
+    "disponibilidad": true
 }
 
 ### Ver todos los productos
 GET http://localhost:3000/products
 
 ### Eliminar producto
-DELETE http://localhost:3000/products/4
+DELETE http://localhost:3000/products/10
 
 ### Ver productos subidos por un usuario especifico.
-GET http://localhost:3000/products/Idiarj
+GET http://localhost:3000/products/user/6
+
+
+### Actualizar producto
+PATCH  http://localhost:3000/products/11
+Content-Type: application/json
+
+{
+    "cantidad": 20
+}
+

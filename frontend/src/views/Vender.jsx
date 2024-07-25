@@ -74,24 +74,8 @@ const Vender = () => {
     formData.append('id_marca', idMarca);
     formData.append('id_deporte', idDeporte);
     formData.append('cantidad', cantidad); // Agregar cantidad al formData
-  
-    try {
-      const response = await fetch('http://localhost:3000/products', {
-            method: 'POST',
-            body: formData,
-            headers: {
-              // No establezcas 'Content-Type' cuando uses FormData
-            }
-      })
-      console.log(response);
-      const data = await response.json()
-      console.log(data)
-      if(response.ok) {
-        console.log('todo joya')
-      }
-    } catch (error) {
-      console.error('Error al enviar el formulario:', error);
-    }
+
+    addProduct(formData)
   };
 
   const handleEditProduct = async () => {

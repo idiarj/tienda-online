@@ -30,7 +30,23 @@ export const ProductProvider = ({ children }) => {
 
 
   const addProduct = (newProduct) => {
-    setProductList(prevProducts => [...prevProducts, { ...newProduct, id: Date.now() }]);
+    try {
+      const response = await fetch('http://localhost:3000/products', {
+            method: 'POST',
+            body: newProduct,
+            headers: {
+              // No establezcas 'Content-Type' cuando uses FormData
+            }
+      })
+      console.log(response);
+      const data = await response.json()
+      console.log(data)
+      if(response.ok) {
+        console.log('todo joya')
+      }
+    } catch (error) {
+      console.error('Error al enviar el formulario:', error);
+    }
   };
 
  

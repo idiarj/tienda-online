@@ -1,5 +1,6 @@
 import { ProductModel } from "../models/productModel.js";
 import { productValidation } from "../instances/iValidator/iValidator.js";
+import { iSessionWrapper } from "../instances/iSessionManager/iSessionManager.js";
 
 
 export class productController{
@@ -8,16 +9,24 @@ export class productController{
         console.log('entre')
         try {
             // console.log(req.body)
-            const {path} = req.file
-            req.body.imagen = path
+            if(!iSessionWrapper.verifySession(req, res)) return res.status(401).json({
+                error: 'Necesitas iniciar sesion para vender un producto.'
+            })
+            if(req.file){
+                const {path} = req.file
+                req.body.imagen = path
+            }
+            const {userid: id_usuario} = req.session
+            console.log(id_usuario)
             console.log(req.body)
+
             const {nombre_producto, cantidad, precio, id_marca, id_deporte, imagen, disponibilidad, descripcion} = req.body 
             const {error} = productValidation.validateTotal(req.body)
             if(error) return res.status(400).json({
                 mensaje: 'Error en las validaciones',
                 error: error.issues[0].message
             })
-            const producto = await ProductModel.createProduct({nombre_producto, precio, id_marca, id_deporte, imagen, disponibilidad, descripcion})
+            const producto = await ProductModel.createProduct({nombre_producto, cantidad, precio, id_marca, id_deporte, imagen, disponibilidad, descripcion, id_usuario})
             if(!producto.success) return res.status(400).json({
                 mensaje: 'Error al crear el producto',
                 error: producto.error
@@ -60,15 +69,53 @@ export class productController{
                 productId
             })
 
-            if(deletedProduct.success) return res.status(400).json({
-                error: deletedProduct
+            if(!deletedProduct.success) return res.status(400).json({
+                error: deletedProduct.error
             })
 
             return res.status(200).json({
                 mensaje: deletedProduct.mensaje,
-                error: deletedProduct.error
             })
 
+        } catch (error) {
+            return res.status(500).json({
+                error: error.message
+            })
+        }
+    }
+
+    static async getUserProducts(req, res){
+        try {
+            const {userid} = req.session
+            const productos = await ProductModel.getUserProducts({userId: userid})
+            if(!productos.success) return res.status(400).json({
+                error: productos.error
+            })
+            return res.status(200).json({
+                products: productos.resultSet
+            })
+        } catch (error) {
+
+        }
+    }
+
+    static async patchProduct(req, res){
+        try {
+            console.log(req.body)
+            const {error} = productValidation.validateUpate(req.body)
+            if(error) return res.status(400).json({
+                mensaje: 'Error en las validaciones',
+                error: error.issues[0].message
+            })
+            const {productId} = req.params
+            const {nombre_producto, cantidad, precio, id_marca, id_deporte, imagen, disponibilidad, descripcion} = req.body 
+            const editedProduct = await ProductModel.editProduct({productId, nombre_producto, cantidad, precio, id_marca, id_deporte, imagen, disponibilidad, descripcion})
+            if(!editedProduct.success) return res.status(400).json({
+                error: editedProduct.error
+            }) 
+            return res.status(200).json({
+                product: editedProduct.resultSet
+            })
         } catch (error) {
             return res.status(500).json({
                 error: error.message

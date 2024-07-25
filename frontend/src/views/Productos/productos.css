@@ -39,9 +39,6 @@
     display: grid;
     flex-wrap: wrap;
   }
-  .productos-lista-vendedor{
-    display: grid;
-  }
   .search-bar {
     margin-bottom: 20px;
   }

@@ -3,13 +3,12 @@ import { homeRouter } from "./homeRouter.js";
 import { logoutRouter } from "./logoutRouter.js";
 import { registerRouter } from "./registerRoute.js";
 import { productRouter } from "./productRouter.js";
-import { imageRouter } from "./imageRouter.js";
+
 
 export {
     loginRouter,
     homeRouter,
     logoutRouter,
     registerRouter,
-    productRouter,
-    imageRouter
+    productRouter
 }

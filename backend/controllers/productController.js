@@ -1,19 +1,21 @@
 import { ProductModel } from "../models/productModel.js";
-import { imageValidation } from "../instances/iValidator/iValidator.js";
-import fs from 'fs'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import { productValidation } from "../instances/iValidator/iValidator.js";
 
-import { pgFrameworks } from "../instances/iPgManager/iPgManager.js";
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
 export class productController{
 
     static async productPostController(req, res){
         console.log('entre')
         try {
-
+            const {path} = req.file
+            req.body.imagen = path
+            console.log(req.body)
+            const {error} = productValidation.validateTotal(req.body)
         } catch (error) {
-
+            return res.status(500).json({
+                error: 'Error interno del servidor',
+                detalle: error.message
+            })
         }
     }
 

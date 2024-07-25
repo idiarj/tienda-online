@@ -28,8 +28,11 @@ Content-Type: application/json
 }
 
 
-### assasa
-POST http://localhost:3000/upload
 
-####
+#### Crear producto
 GET http://localhost:3000/products
+Content-Type: application/json
+
+{
+    
+}

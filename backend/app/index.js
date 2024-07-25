@@ -3,7 +3,7 @@ import cors from 'cors'
 import cors_config from '../config/cors-config.json' assert {type: 'json'}
 import { iSessionWrapper } from '../instances/iSessionManager/iSessionManager.js'
 import { isAuthMiddleware } from '../middlewares/isAuthMid.js'
-import {loginRouter, homeRouter, logoutRouter, registerRouter, productRouter, imageRouter} from '../routes/dispatcher.js'
+import {loginRouter, homeRouter, logoutRouter, registerRouter, productRouter} from '../routes/dispatcher.js'
 import multer from 'multer'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -28,7 +28,7 @@ app.use('/register', registerRouter)
 app.use('/home', isAuthMiddleware, homeRouter)
 app.use('/logout', logoutRouter)
 app.use('/products',  productRouter)
-// app.use('/image', upload.single('image'), imageRouter)
+
 
 app.post('/upload', uploadMiddleware , (req, res) => {
     if (!req.file) {

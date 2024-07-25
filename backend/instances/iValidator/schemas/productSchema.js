@@ -30,7 +30,7 @@ export const productSchema = z.object({
         return value.endsWith('.jpg') || value.endsWith('.png');
       }, {
         message: "La imagen debe ser de tipo JPG o PNG", // Mensaje de error personalizado
-      })
+      }).optional()
 })
 
 

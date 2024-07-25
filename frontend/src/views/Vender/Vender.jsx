@@ -134,7 +134,7 @@ const Vender = () => {
       <div>
       <h1>Vender</h1>
       <button onClick={() => setIsAddModalOpen(true)} className="agregar-producto-btn">Agregar Producto</button>
-      <div className="productos-lista-vendedor">
+      <div className="productos-lista">
         {products.map(product => (
           <Producto key={product.id} id={product.id} item={product} vista="vender" onEdit={openEditModal} />
         ))}

@@ -1,39 +1,32 @@
 import { useState } from 'react';
 
-
 function Testing() {
   const [nombreProducto, setNombreProducto] = useState('');
   const [precio, setPrecio] = useState('');
   const [idMarca, setIdMarca] = useState('');
   const [idDeporte, setIdDeporte] = useState('');
   const [imagen, setImagen] = useState(null);
-  // const [productForm, setProductForm] = useState({
-  //   nombre_producto: nombreProducto,
-  //   precio: precio,
-  //   id_marca: idMarca,
-  //   id_deporte: idDeporte
-  // })
+  const [cantidad, setCantidad] = useState(''); // Agregado nuevo estado para la cantidad
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('imagen', imagen);
-    // Agregar cada propiedad de productForm al formData
+    // Agregar cada propiedad al formData
     formData.append('nombre_producto', nombreProducto);
     formData.append('precio', precio);
     formData.append('id_marca', idMarca);
     formData.append('id_deporte', idDeporte);
+    formData.append('cantidad', cantidad); // Agregar cantidad al formData
   
     try {
       const response = await fetch('http://localhost:3000/products', {
             method: 'POST',
-            body: formData, // Ahora solo pasamos formData
+            body: formData,
             headers: {
               // No establezcas 'Content-Type' cuando uses FormData
-              // 'Content-Type': 'multipart/form-data' es incorrecto y no necesario
             }
       })
-      // Manejar la respuesta del servidor
       console.log(response);
       const data = await response.json()
       console.log(data)
@@ -73,11 +66,19 @@ function Testing() {
         placeholder="ID del Deporte"
         required
       />
+            <input
+        type="number"
+        value={cantidad}
+        onChange={(e) => setCantidad(e.target.value)}
+        placeholder="Cantidad"
+        required
+      />
       <input
         type="file"
         onChange={(e) => setImagen(e.target.files[0])}
         required
       />
+
       <button type="submit">Agregar Producto</button>
     </form>
   );

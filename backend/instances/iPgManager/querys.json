@@ -4,5 +4,9 @@
     "verifyEmail": "SELECT email_usuario AS email FROM usuario WHERE LOWER(email_usuario) = LOWER($1)",
     "insert_persona": "INSERT INTO persona (nom_persona, ape_persona) VALUES ($1, $2) RETURNING id_persona",
     "insert_username": "INSERT INTO usuario (nom_usuario, email_usuario, contra_usuario, id_persona) VALUES ($1, $2, $3, $4)",
-    "insert_producto": "INSERT INTO producto (nom_producto, id_marca, precio, id_deporte, img_producto) VALUES ($1, $2, $3, $4, $5) RETURNING id_producto, nom_producto"
+    "insert_producto": "INSERT INTO producto (nom_producto, cantidad, id_marca, precio, id_deporte, img_producto) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id_producto, nom_producto",
+    "getAllProductsLoged": "SELECT id_producto AS productId, nom_producto AS producto, cantidad, precio, nom_deporte AS deporte, nom_marca AS marca, img_producto as imagen FROM producto p INNER JOIN marca m ON p.id_marca = m.id_marca INNER JOIN deporte d ON p.id_deporte = d.id_deporte WHERE p.id_producto NOT IN (SELECT id_producto FROM producto WHERE id_usuario = $1);",
+    "getAllProductsNotLoged": "SELECT id_producto AS productId, nom_producto AS producto, cantidad, precio, nom_deporte AS deporte, nom_marca AS marca, img_producto as imagen FROM producto p INNER JOIN marca m ON p.id_marca = m.id_marca INNER JOIN deporte d ON p.id_deporte = d.id_deporte",
+    "getDeportes": "SELECT * FROM deporte",
+    "getMarcas": "SELECT * FROM marca"
 }

@@ -37,3 +37,6 @@ Content-Type: application/json
     "nombre_producto": "Camisa Manchester City 2023/2024",
     "precio": "60$"
 }
+
+### Ver todos los productos
+GET http://localhost:3000/products

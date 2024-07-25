@@ -63,6 +63,7 @@ CREATE  TABLE "public".producto (
 	id_marca             serial  NOT NULL  ,
 	precio               real    ,
 	id_deporte           serial  NOT NULL  ,
+	img_producto         bytea    ,
 	CONSTRAINT pk_producto PRIMARY KEY ( id_producto ),
 	CONSTRAINT fk_producto_marca FOREIGN KEY ( id_marca ) REFERENCES "public".marca( id_marca )   ,
 	CONSTRAINT fk_producto_deporte FOREIGN KEY ( id_deporte ) REFERENCES "public".deporte( id_deporte )   
@@ -84,15 +85,6 @@ CREATE  TABLE "public".factura (
 	fecha                date    ,
 	CONSTRAINT pk_factura PRIMARY KEY ( id_factura ),
 	CONSTRAINT fk_factura_usuario FOREIGN KEY ( id_usuario ) REFERENCES "public".usuario( id_usuario )   
- );
-
-CREATE  TABLE "public".imagen ( 
-	id_imagen            serial  NOT NULL  ,
-	nom_imagen           varchar DEFAULT nextval('imagen_nom_imagen_seq'::regclass) NOT NULL  ,
-	id_producto          serial  NOT NULL  ,
-	data_imagen          bytea    ,
-	CONSTRAINT pk_imagen PRIMARY KEY ( id_imagen ),
-	CONSTRAINT fk_imagen_producto FOREIGN KEY ( id_producto ) REFERENCES "public".producto( id_producto )   
  );
 
 CREATE  TABLE "public".producto_factura ( 

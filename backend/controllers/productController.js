@@ -11,7 +11,7 @@ export class productController{
             const {path} = req.file
             req.body.imagen = path
             console.log(req.body)
-            const {nombre_producto, precio, id_marca, id_deporte, imagen} = req.body 
+            const {nombre_producto, cantidad, precio, id_marca, id_deporte, imagen} = req.body 
             const {error} = productValidation.validateTotal(req.body)
             if(error) return res.status(400).json({
                 mensaje: 'Error en las validaciones',
@@ -36,10 +36,18 @@ export class productController{
 
     static async productControllerGetAll(req, res){
         try {
-
-
+            const {userid} = req.session
+            const productos = await ProductModel.getAllProducts({userId: userid})
+            if(!productos.success) return res.status(400).json({
+                error: productos.error
+            })
+            return res.status(200).json({
+                productos: productos.resultSet
+            })
         }catch(error){
-
+            return res.status(500).json({
+                error: error.message
+            })
         }
     }
     static async addProductImageController(req, res){

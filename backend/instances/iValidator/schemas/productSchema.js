@@ -21,6 +21,13 @@ export const productSchema = z.object({
     }).positive({
         message: 'El precio debe ser un numero positivo.'
     }),
+    cantidad: z.number({
+        message: 'La cantidad debe ser un numero.'
+    }).int({
+        message: 'La cantidad debe ser un numero entero.'
+    }).positive({
+        message: 'La cantidad debe ser un numero positivo.'
+    }),
     imagen: z.string().refine((value) => {
         // Verifica que el valor termine en '.jpg' o '.png'
         return value.endsWith('.jpg') || value.endsWith('.png');

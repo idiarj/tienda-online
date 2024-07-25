@@ -30,9 +30,10 @@ Content-Type: application/json
 
 
 #### Crear producto
-GET http://localhost:3000/products
+POST http://localhost:3000/products
 Content-Type: application/json
 
 {
-    
+    "nombre_producto": "Camisa Manchester City 2023/2024",
+    "precio": "60$"
 }

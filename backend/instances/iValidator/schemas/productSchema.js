@@ -21,10 +21,6 @@ export const productSchema = z.object({
     }).positive({
         message: 'El precio debe ser un numero positivo.'
     }),
-    fecha_creacion: z.date({
-        required_error: 'El producto debe tener una fecha e creacion.',
-        message: 'Fecha de creacion no valida.'
-    }),
     imagen: z.string().refine((value) => {
         // Verifica que el valor termine en '.jpg' o '.png'
         return value.endsWith('.jpg') || value.endsWith('.png');

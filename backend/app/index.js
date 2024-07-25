@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + '-' + file.originalname)
     }
   });
-const uploadMiddleware = multer({storage}).single('image')
+const uploadMiddleware = multer({storage}).single('imagen')
 
 app.use(express.json())
 app.use(cors(cors_config))
@@ -27,21 +27,8 @@ app.use('/login', loginRouter)
 app.use('/register', registerRouter)
 app.use('/home', isAuthMiddleware, homeRouter)
 app.use('/logout', logoutRouter)
-app.use('/products',  productRouter)
+app.use('/products', uploadMiddleware, productRouter)
 
-
-app.post('/upload', uploadMiddleware , (req, res) => {
-    if (!req.file) {
-        console.log('troleaste')
-        return res.status(400).json({
-            mensaje: 'troleaste'
-        });
-    }
-    console.log(req.file);
-    res.status(200).json({
-        mensaje: 'troleastent'
-    })
-});
 
 
 app.listen(PORT, ()=>{

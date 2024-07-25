@@ -11,8 +11,8 @@ export class registerController{
             const { error } = await registerValidation.validateTotal(req.body);
             
             if(error) return res.status(400).json({
-                error: 'Error en la validación de los datos',
-                detalle: error.issues[0].message
+                mensaje: 'Error en la validación de los datos',
+                error: error.issues[0].message
             });
 
             const {nombre, apellido, username, correo, password} = req.body;
@@ -23,16 +23,16 @@ export class registerController{
             const email = await userModel.verifyEmail({correo});
             if(email.success) return res.status(400).json({error: 'Este correo ya está registrado.'});
 
-            const newUser = await userModel.registerUser({
+            const register = await userModel.registerUser({
                 nombre, 
                 apellido, 
                 username, 
                 correo, 
                 password
                 });
-            if(!newUser.success) return res.status(500).json({
+            if(!register.success) return res.status(500).json({
                 error: 'Error al registrar el usuario',
-                detalle: newUser.error
+                detalle: register.error
             })
 
             return res.status(201).json({mensaje: 'Usuario registrado correctamente'});

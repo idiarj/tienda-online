@@ -12,6 +12,7 @@ export class loginController {
      */
     static async loginControlPost(req, res){
         try{
+            console.log(req.body)
             const result = await loginValidation.validateTotal(req.body)
             if(iSessionWrapper.verifySession(req)) return res.json({mensaje: `Ya hay una sesion iniciada con el usuario ${req.session.username}`}  )
             if(result.error) return res.status(400).json({mensaje: 'Datos no validos', error: result.error.issues})

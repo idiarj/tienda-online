@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './login.css'
 
 const Login = () => {
     const [formData, setFormData] = useState({ username: '', password: '' });
@@ -33,7 +34,7 @@ const Login = () => {
                 setError(data.error)
             }else{
                 console.log(data)
-                navigate('/testing')
+                navigate('/home')
             }
         }catch(error){
             console.error('Failed to fetch', error.message)
@@ -41,8 +42,9 @@ const Login = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
+        <section className="loginContainer">
+             <form onSubmit={handleSubmit} className="loginForm">
+            <div className="userDiv">
                 <label htmlFor="username">Nombre de Usuario:</label>
                 <input
                     type="text"
@@ -53,7 +55,7 @@ const Login = () => {
                     required
                 />
             </div>
-            <div>
+            <div className="passwordDiv">
                 <label htmlFor="password">Contraseña:</label>
                 <input
                     type="password"
@@ -64,15 +66,18 @@ const Login = () => {
                     required
                 />
             </div>
-            <button type="submit">Iniciar Sesión</button>
-            {
+            <button className="submitButton" type="submit">Iniciar Sesión</button>
+        </form>
+        {
                 error !== '' && (
-                    <div>
+                    <div className="errorDiv">
                         {error}
                     </div>
                 )
             }
-        </form>
+            <label className='homeLabel' onClick={()=>{navigate('/home')}}>Haz click para volver a Home</label>
+        </section>
+       
     );
 };
 

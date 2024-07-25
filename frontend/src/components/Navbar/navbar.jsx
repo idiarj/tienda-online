@@ -31,7 +31,7 @@ const Navbar = () => {
   return (
     <nav>
         <Link to="/productos">Productos</Link>
-        {auth && (<Link to="/vender">Vender</Link>)}
+        <Link to="/vender">Vender</Link>
         <Link to="/carrito">Carrito</Link>
         {auth ? (
           <>

@@ -1,4 +1,4 @@
-import  { createContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import productos from '../data'; 
 
 
@@ -6,47 +6,17 @@ export const ProductContext = createContext();
 
 
 export const ProductProvider = ({ children }) => {
-  const [productList, setProductList] = useState([]);
+  const [productList, setProductList] = useState(productos);
 
 
-  const getProducts = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/products', 
-        {
-          method: 'GET'
-        }
-      )
-      const data = await response.json()
-      if(response.ok){
-        setProductList(data.)
-      }
-    } catch (error) {
-      console.log(error.message)
-    }
-  };
+  const getProducts = () => productList;
 
   
   const getProductById = (id) => productList.find(product => product.id === id);
 
 
   const addProduct = (newProduct) => {
-    try {
-      const response = await fetch('http://localhost:3000/products', {
-            method: 'POST',
-            body: newProduct,
-            headers: {
-              // No establezcas 'Content-Type' cuando uses FormData
-            }
-      })
-      console.log(response);
-      const data = await response.json()
-      console.log(data)
-      if(response.ok) {
-        console.log('todo joya')
-      }
-    } catch (error) {
-      console.error('Error al enviar el formulario:', error);
-    }
+    setProductList(prevProducts => [...prevProducts, { ...newProduct, id: Date.now() }]);
   };
 
  
@@ -67,5 +37,3 @@ export const ProductProvider = ({ children }) => {
     </ProductContext.Provider>
   );
 };
-
-

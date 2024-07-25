@@ -1,0 +1,52 @@
+.producto {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    text-align: center;
+    background-color: #f9f9f9;
+  }
+  
+  .producto-imagen {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .producto-nombre {
+    font-size: 1.5em;
+    margin: 10px 0;
+  }
+  
+  .producto-marca,
+  .producto-precio {
+    font-size: 1.2em;
+    margin: 5px 0;
+  }
+  
+  .producto-agregar,
+  .producto-editar,
+  .producto-eliminar,
+  .producto-eliminar-carrito {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+  .producto-agregar:hover,
+  .producto-editar:hover,
+  .producto-eliminar:hover,
+  .producto-eliminar-carrito:hover {
+    background-color: #0056b3;
+  }
+  
+  .producto-cantidad-input {
+    width: 60px;
+    text-align: center;
+    margin: 10px 0;
+  }
+  

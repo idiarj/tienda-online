@@ -5,6 +5,7 @@ import Navbar from './components/navbar';
 import Productos from './views/Productos';
 import Vender from './views/Vender';
 import Carrito from './views/Carrito';
+import { ProductProvider } from './context/ProductContext';
 import './App.css'
 
 function App() {
@@ -13,13 +14,15 @@ function App() {
     <>
     
     <Router>
+      <ProductProvider>
       <Navbar />
       <Routes>
         <Route path='/testing' Component={Testing}/>
-        <Route path="/Productos" Component={Productos} />
+        <Route path="/Productos/:categoria?" Component={Productos} />
         <Route path="/Vender" Component={Vender} />
         <Route path="/Carrito" Component={Carrito} />
       </Routes>
+      </ProductProvider>
     </Router>
     </>
     

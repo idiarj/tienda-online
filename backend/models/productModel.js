@@ -34,11 +34,12 @@ export class ProductModel{
         try {
             const key = 'deleteProduct'
             const params = [productId]
-            const [{id_usuario, nom_producto}] = await pgFrameworks.exeQuery({
+            const [{nom_producto, id_usuario}] = await pgFrameworks.exeQuery({
                 key,
                 params,
                 client
             })
+            // console.log(resultSet)
             if(id_usuario != userId){
                 await pgFrameworks.rollbackTransaction(client)
                 return {success: false, error: 'No puedes borrar este producto ya que no es tuyo.'}
@@ -46,6 +47,7 @@ export class ProductModel{
             await pgFrameworks.commitTransaction(client)
             return {success: true, mensaje: `Producto ${nom_producto} eliminado con exito.`}
         } catch (error) {
+            await pgFrameworks.rollbackTransaction(client)
             return {success: false, mensaje: `Error al eliminar el producto con id ${productId}`, error: error.message}
         }
     }

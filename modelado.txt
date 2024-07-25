@@ -57,18 +57,6 @@ CREATE  TABLE "public".persona (
 	CONSTRAINT pk_persona PRIMARY KEY ( id_persona )
  );
 
-CREATE  TABLE "public".producto ( 
-	id_producto          serial  NOT NULL  ,
-	nom_producto         varchar  NOT NULL  ,
-	id_marca             serial  NOT NULL  ,
-	precio               real    ,
-	id_deporte           serial  NOT NULL  ,
-	img_producto         bytea    ,
-	CONSTRAINT pk_producto PRIMARY KEY ( id_producto ),
-	CONSTRAINT fk_producto_marca FOREIGN KEY ( id_marca ) REFERENCES "public".marca( id_marca )   ,
-	CONSTRAINT fk_producto_deporte FOREIGN KEY ( id_deporte ) REFERENCES "public".deporte( id_deporte )   
- );
-
 CREATE  TABLE "public".usuario ( 
 	id_usuario           serial  NOT NULL  ,
 	nom_usuario          varchar    ,
@@ -85,6 +73,21 @@ CREATE  TABLE "public".factura (
 	fecha                date    ,
 	CONSTRAINT pk_factura PRIMARY KEY ( id_factura ),
 	CONSTRAINT fk_factura_usuario FOREIGN KEY ( id_usuario ) REFERENCES "public".usuario( id_usuario )   
+ );
+
+CREATE  TABLE "public".producto ( 
+	id_producto          serial  NOT NULL  ,
+	id_usuario           serial    ,
+	id_marca             serial  NOT NULL  ,
+	id_deporte           serial  NOT NULL  ,
+	nom_producto         varchar  NOT NULL  ,
+	precio               real    ,
+	img_producto         bytea    ,
+	cantidad             integer    ,
+	CONSTRAINT pk_producto PRIMARY KEY ( id_producto ),
+	CONSTRAINT fk_producto_marca FOREIGN KEY ( id_marca ) REFERENCES "public".marca( id_marca )   ,
+	CONSTRAINT fk_producto_deporte FOREIGN KEY ( id_deporte ) REFERENCES "public".deporte( id_deporte )   ,
+	CONSTRAINT fk_producto_usuario FOREIGN KEY ( id_usuario ) REFERENCES "public".usuario( id_usuario )   
  );
 
 CREATE  TABLE "public".producto_factura ( 

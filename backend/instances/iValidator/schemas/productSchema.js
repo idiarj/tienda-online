@@ -25,6 +25,12 @@ export const productSchema = z.object({
         required_error: 'El producto debe tener una fecha e creacion.',
         message: 'Fecha de creacion no valida.'
     }),
-    imagen: z.string().end
-
+    imagen: z.string().refine((value) => {
+        // Verifica que el valor termine en '.jpg' o '.png'
+        return value.endsWith('.jpg') || value.endsWith('.png');
+      }, {
+        message: "La imagen debe ser de tipo JPG o PNG", // Mensaje de error personalizado
+      })
 })
+
+

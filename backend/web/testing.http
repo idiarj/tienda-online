@@ -26,3 +26,10 @@ Content-Type: application/json
     "correo": "lespongo20@gmail.com",
     "password": "lesvoyaponer20"
 }
+
+
+### assasa
+POST http://localhost:3000/upload
+
+####
+GET http://localhost:3000/products

@@ -54,7 +54,7 @@ export class PgHandler{
                 throw new Error(`Query not found for key: ${key}`);
             }
             console.log(`la query entera es ${query}`)
-            console.log(`los parametros son ${params}`)
+            // console.log(`los parametros son ${params}`)
             
             const result = await client.query(query, params)
             // console.log(result)

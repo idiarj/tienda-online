@@ -8,7 +8,10 @@ function Testing() {
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
+      console.log(file)
+
       setSelectedImage(file);
+      console.log(selectedImage)
       setImagePreviewUrl(URL.createObjectURL(file)); // Crear y guardar la URL para vista previa
     }
   };
@@ -21,13 +24,15 @@ function Testing() {
     //   console.log(`${key}: ${value}`);
     // });
 
-    const response = await ifetchWrapper.fetchMethod({
-      endpoint: 'products/imagen',
-      method: 'post',
+    const response = await fetch('http://localhost:3000/products',{
+      method: 'POST',
       body: formData
     })
-    if(response.ok){
+    const {mensaje} = await response.json()
+    console.log(mensaje)
     console.log(selectedImage);
+    if(response.ok){
+
     console.log(imagePreviewUrl)
     }
   };

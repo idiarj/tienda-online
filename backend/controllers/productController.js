@@ -1,16 +1,30 @@
 import { ProductModel } from "../models/productModel.js";
 import { imageValidation } from "../instances/iValidator/iValidator.js";
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
+import { pgFrameworks } from "../instances/iPgManager/iPgManager.js";
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 export class productController{
 
     static async productPostController(req, res){
+        console.log('entre')
         try {
-            
+
         } catch (error) {
-            
+
         }
     }
 
+    static async productControllerGetAll(req, res){
+        try {
+
+
+        }catch(error){
+
+        }
+    }
     static async addProductImageController(req, res){
         try {
             console.log(`estoy recibiendo`, req.body)

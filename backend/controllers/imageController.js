@@ -5,6 +5,8 @@ export class imageController{
         try {
             console.log(req.file)
             console.log(req.body)
+            console.log(req)
+            return res.status(200)
         } catch (error) {
             return res.status(500).json({
                 mensaje: 'Error interno en el servidor.',

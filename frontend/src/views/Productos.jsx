@@ -38,7 +38,7 @@ const Productos = () => {
       const matchesCategoryFilter = filters.categoria ? product.categoria === filters.categoria : true;
       const matchesBrand = filters.marca ? product.marca.toLowerCase().includes(filters.marca.toLowerCase()) : true;
       const matchesPrice = (filters.precioMin === '' || product.precio >= parseFloat(filters.precioMin)) &&
-                           (filters.precioMax === '' || product.precio <= parseFloat(filters.precioMax));
+  (filters.precioMax === '' || product.precio <= parseFloat(filters.precioMax));
 
       return matchesCategory && matchesName && matchesCategoryFilter && matchesBrand && matchesPrice;
     });

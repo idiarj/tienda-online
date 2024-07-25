@@ -34,8 +34,12 @@ POST http://localhost:3000/products
 Content-Type: application/json
 
 {
-    "nombre_producto": "Camisa Manchester City 2023/2024",
-    "precio": "60$"
+    "nombre_producto": "Franela Local Manchester City",
+    "precio": "60$",
+    "descripcion": "Franela Local Manchester City 2023/2024",
+    "id_usuario": 1,
+    "id_marca": 3,
+    "id_marca": 1,
 }
 
 ### Ver todos los productos
@@ -43,3 +47,6 @@ GET http://localhost:3000/products
 
 ### Eliminar producto
 DELETE http://localhost:3000/products/4
+
+### Ver productos subidos por un usuario especifico.
+GET http://localhost:3000/products/Idiarj

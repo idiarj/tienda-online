@@ -2,11 +2,11 @@ import { pgFrameworks } from "../instances/iPgManager/iPgManager.js";
 import fs from 'fs'
 export class ProductModel{
 
-    static async createProduct({nombre_producto, cantidad, precio, id_deporte, id_marca, imagen}){
+    static async createProduct({nombre_producto, cantidad, precio, id_deporte, id_marca, imagen, disponibilidad, descripcion}){
         try {
             const key = 'insert_producto'
             const data = await fs.promises.readFile(imagen)
-            const params = [nombre_producto, cantidad, id_marca, precio, id_deporte, data]
+            const params = [nombre_producto, cantidad, id_marca, precio, id_deporte, data, disponibilidad, descripcion]
             console.log(params)
             const resultSet = await pgFrameworks.exeQuery({
                 key,
@@ -25,6 +25,20 @@ export class ProductModel{
             const resultSet = await pgFrameworks.exeQuery({key, params})
             return {success: true, resultSet}
         }catch(error){
+            return {success: false, error: error.message}
+        }
+    }
+
+    static async getUserProducts({userId}){
+        try {
+            const key = 'getUserProducts'
+            const params = [userId]
+            const resultSet = await pgFrameworks.exeQuery({
+                key,
+                params
+            })
+            return {success: true, resultSet}
+        } catch (error) {
             return {success: false, error: error.message}
         }
     }

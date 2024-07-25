@@ -33,7 +33,17 @@ export const productSchema = z.object({
         return value.endsWith('.jpg') || value.endsWith('.png');
       }, {
         message: "La imagen debe ser de tipo JPG o PNG", // Mensaje de error personalizado
-      }).optional()
+      }).optional(),
+    disponibilidad: z.boolean({
+        message: 'La disponibilidad debe ser un booleano.'
+    }),
+    descripcion: z.string({
+        message: 'La descripcion debe ser un string.'
+    }).min(8, {
+        message: "La descripcion debe tener minimo 8 caracteres."
+    }).max(60, {
+        message: "La descripcion no puede tener mas de 60 caracteres."
+    })
 })
 
 

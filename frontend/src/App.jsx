@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom' // Import the Router component
-import Testing from './components/testing'
+// import Testing from './components/testing'
 // import Navbar from './components/navbar';
 import Productos from './views/Productos';
 import Vender from './views/Vender';
@@ -24,7 +24,6 @@ function App() {
         <Route path="/register" Component={Register}/>
         <Route path="/home" Component={Home}/>
         <Route path="/login" Component={Login}/>
-        <Route path='/testing' Component={Testing}/>
         <Route path="/Productos/:categoria?" Component={Productos} />
         <Route path="/Vender" Component={Vender} />
         <Route path="/Carrito" Component={Carrito} />

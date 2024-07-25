@@ -1,4 +1,5 @@
-import  { useContext, useState } from 'react';
+import  { useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ProductContext } from '../context/ProductContext';
 import Producto from '../components/producto';
 import './vender.css';
@@ -10,16 +11,26 @@ const Vender = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
+  const [nombreProducto, setNombreProducto] = useState('');
+  const [precio, setPrecio] = useState('');
+  const [idMarca, setIdMarca] = useState('');
+  const [idDeporte, setIdDeporte] = useState('');
+  const [imagen, setImagen] = useState(null);
+  const [cantidad, setCantidad] = useState(''); 
+  const [disponibilidad, setDisponibilidad] = useState(false)
+  const [descripcion, setDescripcion] = useState('')
   const [formValues, setFormValues] = useState({
     imagen: '',
     nombre: '',
     descripcion: '',
     precio: '',
-    disponibilidad: true,
+    disponibilidad: '',
     categoria: '',
     marca: '',
     cantidad: ''
-  });
+  })
+
+  const navigate = useNavigate()
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -28,36 +39,103 @@ const Vender = () => {
       [name]: type === 'checkbox' ? checked : value
     });
   };
+  const verifySession = async ()=>{
+    try {
+      const response = await fetch('http://localhost:3000/home',
+        {
+          method: 'GET',
+          credentials: 'include'
+        }
+      )
+      const data = await response.json()
+      if(!response.ok){
+        navigate('/home')
+      }
+      return true
+    } catch (error) {
+      console.error('failed to fetch', error.message)
+      return false
+    }
+  }
 
-  const handleAddProduct = () => {
-    addProduct(formValues);
-    setIsAddModalOpen(false);
-    setFormValues({
-      imagen: '',
-      nombre: '',
-      descripcion: '',
-      precio: '',
-      disponibilidad: true,
-      categoria: '',
-      marca: '',
-      cantidad: ''
-    });
+  useEffect(()=>{
+    const auth = verifySession()
+  }, [])
+
+
+
+  const handleAddProduct = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('imagen', imagen);
+    // Agregar cada propiedad al formData
+    formData.append('nombre_producto', nombreProducto);
+    formData.append('precio', precio);
+    formData.append('id_marca', idMarca);
+    formData.append('id_deporte', idDeporte);
+    formData.append('cantidad', cantidad); // Agregar cantidad al formData
+  
+    try {
+      const response = await fetch('http://localhost:3000/products', {
+            method: 'POST',
+            body: formData,
+            headers: {
+              // No establezcas 'Content-Type' cuando uses FormData
+            }
+      })
+      console.log(response);
+      const data = await response.json()
+      console.log(data)
+      if(response.ok) {
+        console.log('todo joya')
+      }
+    } catch (error) {
+      console.error('Error al enviar el formulario:', error);
+    }
   };
 
-  const handleEditProduct = () => {
-    editProduct({ ...formValues, id: currentProduct.id });
-    setIsEditModalOpen(false);
-    setCurrentProduct(null);
-    setFormValues({
-      imagen: '',
-      nombre: '',
-      descripcion: '',
-      precio: '',
-      disponibilidad: true,
-      categoria: '',
-      marca: '',
-      cantidad: ''
+  const handleEditProduct = async () => {
+    const formData = new FormData();
+    // Suponiendo que `formValues` contiene todos los campos necesarios para el producto
+    Object.keys(formValues).forEach(key => {
+      formData.append(key, formValues[key]);
     });
+    // Asegúrate de incluir el ID del producto que se va a editar
+    formData.append('id', currentProduct.id);
+    console.log(currentProduct)
+  
+    try {
+      const response = await fetch(`http://localhost:3000/products/${currentProduct.id}`, {
+        method: 'PUT', // o 'PATCH' dependiendo de cómo esté implementado tu backend
+        body: formData,
+        // No establezcas 'Content-Type' cuando uses FormData
+        // headers: { 'Content-Type': 'multipart/form-data' }, // Esto es manejado automáticamente por el navegador
+      });
+  
+      if (response.ok) {
+        // Actualización exitosa
+        console.log('Producto actualizado con éxito');
+        setIsEditModalOpen(false);
+        setCurrentProduct(null);
+        // Restablecer formValues o actualizar la UI según sea necesario
+        setFormValues({
+          imagen: '',
+          nombre: '',
+          descripcion: '',
+          precio: '',
+          disponibilidad: true,
+          categoria: '',
+          marca: '',
+          cantidad: ''
+        });
+        // Aquí podrías querer recargar los productos desde el backend o actualizar el estado local
+      } else {
+        // Manejar respuesta no exitosa
+        console.error('Error al actualizar el producto');
+      }
+    } catch (error) {
+      console.error('Error al enviar el formulario:', error);
+    }
   };
 
   const openEditModal = (product) => {
@@ -74,7 +152,7 @@ const Vender = () => {
       <button onClick={() => setIsAddModalOpen(true)} className="agregar-producto-btn">Agregar Producto</button>
       <div className="productos-lista-vendedor">
         {products.map(product => (
-          <Producto key={product.id} id={product.id} vista="vender" onEdit={openEditModal} />
+          <Producto key={product.id} id={product.id} item={product} vista="vender" onEdit={openEditModal} />
         ))}
       </div>
 
@@ -85,80 +163,84 @@ const Vender = () => {
             <h2>Agregar Nuevo Producto</h2>
             <form>
               <div>
-                <label>Imagen:</label>
+                <label >Nombre del Producto:</label>
                 <input
                   type="text"
-                  name="imagen"
-                  value={formValues.imagen}
-                  onChange={handleInputChange}
+                  id="nombreProducto"
+                  value={nombreProducto}
+                  onChange={(e) => setNombreProducto(e.target.value)}
+                  placeholder="Nombre del Producto"
+                  required
                 />
               </div>
               <div>
-                <label>Nombre:</label>
-                <input
-                  type="text"
-                  name="nombre"
-                  value={formValues.nombre}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label>Descripción:</label>
-                <textarea
-                  name="descripcion"
-                  value={formValues.descripcion}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label>Precio:</label>
+                <label >Precio:</label>
                 <input
                   type="number"
-                  name="precio"
-                  value={formValues.precio}
-                  onChange={handleInputChange}
+                  id="precio"
+                  value={precio}
+                  onChange={(e) => setPrecio(e.target.value)}
+                  placeholder="Precio"
+                  required
                 />
               </div>
               <div>
-                <label>Disponibilidad:</label>
+                <label >ID de la Marca:</label>
+                <input
+                  type="text"
+                  id="idMarca"
+                  value={idMarca}
+                  onChange={(e) => setIdMarca(e.target.value)}
+                  placeholder="ID de la Marca"
+                  required
+                />
+              </div>
+              <div>
+                <label >ID del Deporte:</label>
+                <input
+                  type="text"
+                  id="idDeporte"
+                  value={idDeporte}
+                  onChange={(e) => setIdDeporte(e.target.value)}
+                  placeholder="ID del Deporte"
+                  required
+                />
+              </div>
+              <div>
+                <label >Cantidad:</label>
+                <input
+                  type="number"
+                  id="cantidad"
+                  value={cantidad}
+                  onChange={(e) => setCantidad(e.target.value)}
+                  placeholder="Cantidad"
+                  required
+                />
+              </div>
+              <div>
+                <label >Disponibilidad:</label>
                 <input
                   type="checkbox"
+                  id="disponibilidad"
                   name="disponibilidad"
-                  checked={formValues.disponibilidad}
-                  onChange={handleInputChange}
+                  checked={disponibilidad}
+                  onChange={(e) => setDisponibilidad(e.target.checked)} // Changed to e.target.checked for correct checkbox handling
                 />
               </div>
               <div>
-                <label>Categoría:</label>
+                <label>Imagen:</label>
                 <input
-                  type="text"
-                  name="categoria"
-                  value={formValues.categoria}
-                  onChange={handleInputChange}
+                  type="file"
+                  id="imagen"
+                  onChange={(e) => setImagen(e.target.files[0])}
+                  name="imagen"
+                  required
                 />
               </div>
-              <div>
-                <label>Marca:</label>
-                <input
-                  type="text"
-                  name="marca"
-                  value={formValues.marca}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label>Cantidad:</label>
-                <input
-                  type="number"
-                  name="cantidad"
-                  value={formValues.cantidad}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <button type="button" onClick={handleAddProduct}>Agregar Producto</button>
-            </form>
-          </div>
+            <button type="button" onClick={handleAddProduct}>Agregar Producto</button>
+          </form>
         </div>
+      </div>
       )}
 
       {isEditModalOpen && (

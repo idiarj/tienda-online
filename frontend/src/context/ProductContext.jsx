@@ -6,10 +6,24 @@ export const ProductContext = createContext();
 
 
 export const ProductProvider = ({ children }) => {
-  const [productList, setProductList] = useState(productos);
+  const [productList, setProductList] = useState([]);
 
 
-  const getProducts = () => productList;
+  const getProducts = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/products', 
+        {
+          method: 'GET'
+        }
+      )
+      const data = await response.json()
+      if(response.ok){
+        setProductList(data.)
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
+  };
 
   
   const getProductById = (id) => productList.find(product => product.id === id);

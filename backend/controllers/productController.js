@@ -7,17 +7,17 @@ export class productController{
     static async productPostController(req, res){
         console.log('entre')
         try {
-            console.log(req.body)
+            // console.log(req.body)
             const {path} = req.file
             req.body.imagen = path
             console.log(req.body)
-            const {nombre_producto, cantidad, precio, id_marca, id_deporte, imagen} = req.body 
+            const {nombre_producto, cantidad, precio, id_marca, id_deporte, imagen, disponibilidad, descripcion} = req.body 
             const {error} = productValidation.validateTotal(req.body)
             if(error) return res.status(400).json({
                 mensaje: 'Error en las validaciones',
                 error: error.issues[0].message
             })
-            const producto = await ProductModel.createProduct({nombre_producto, precio, id_marca, id_deporte, imagen})
+            const producto = await ProductModel.createProduct({nombre_producto, precio, id_marca, id_deporte, imagen, disponibilidad, descripcion})
             if(!producto.success) return res.status(400).json({
                 mensaje: 'Error al crear el producto',
                 error: producto.error

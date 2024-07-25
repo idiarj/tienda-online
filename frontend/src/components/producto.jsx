@@ -3,7 +3,7 @@ import { ProductContext } from '../context/ProductContext';
 import { CartContext } from '../context/CartContext';
 import './producto.css';
 
-const Producto = ({ id, vista, onEdit, onDelete }) => {
+const Producto = ({ id, item, vista, onEdit, onDelete }) => {
   const { getProductById, addProduct, deleteProduct } = useContext(ProductContext);
   const { addToCart, removeFromCart } = useContext(CartContext);
   const [cantidad, setCantidad] = useState(1);
@@ -13,8 +13,18 @@ const Producto = ({ id, vista, onEdit, onDelete }) => {
     addToCart({ ...product, cantidad });
   };
 
-  const handleDeleteProduct = () => {
-    deleteProduct(id);
+  const handleDeleteProduct = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/products/${id}`,
+        {
+          method: 'DELETE',
+          credentials: 'include'
+        }
+      )
+    } catch (error) {
+      console.error('failed to fetch', error.message)
+      return error
+    }
   };
 
   const handleEditProduct = () => {
@@ -30,15 +40,15 @@ const Producto = ({ id, vista, onEdit, onDelete }) => {
     setCantidad(Number(e.target.value));
   };
 
-  if (!product) return <p>Producto no encontrado</p>;
+  if (!item) return <p>Producto no encontrado</p>;
 
   return (
     <div className="producto">
-      <img src={product.imagen} alt={product.nombre} className="producto-imagen" />
+      <img src={item.imagen} alt={item.nombre} className="producto-imagen" />
       <div>
-      <h2 className="producto-nombre">{product.nombre}</h2>
-      <p className="producto-marca">Marca: {product.marca}</p>
-      <p className="producto-precio">Precio: ${product.precio}</p>
+      <h2 className="producto-nombre">{item.nombre}</h2>
+      <p className="producto-marca">Marca: {item.marca}</p>
+      <p className="producto-precio">Precio: ${item.precio}</p>
       
       
 
@@ -48,9 +58,9 @@ const Producto = ({ id, vista, onEdit, onDelete }) => {
 
       {vista === 'vender' && (
         <div>
-          <p className="producto-descripcion">Descripción: {product.descripcion}</p>
-          <p className="producto-disponibilidad">Disponibilidad: {product.disponibilidad ? 'Disponible' : 'No disponible'}</p>
-          <p className="producto-cantidad">Cantidad: {product.cantidad}</p>
+          <p className="producto-descripcion">Descripción: {item.descripcion}</p>
+          <p className="producto-disponibilidad">Disponibilidad: {item.disponibilidad ? 'Disponible' : 'No disponible'}</p>
+          <p className="producto-cantidad">Cantidad: {item.cantidad}</p>
           <button onClick={handleEditProduct} className="producto-editar">Editar</button>
           <button onClick={handleDeleteProduct} className="producto-eliminar">Eliminar</button>
         </div>

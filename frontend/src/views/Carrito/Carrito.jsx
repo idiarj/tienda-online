@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { CartContext } from '../../context/CartContext.jsx';
 import Producto from '../../components/producto/producto.jsx';
 import Navbar from '../../components/Navbar/navbar.jsx'
+import './carrito.css'
 
 const Carrito = () => {
   const { getCartProducts, removeFromCart } = useContext(CartContext);
@@ -14,7 +15,7 @@ const Carrito = () => {
   return (
     <>
     <Navbar/>
-     <div>
+     <div className="carrito-container">
       <h1>Carrito</h1>
       <div className="productos-lista">
         {products.map(product => (
@@ -23,6 +24,7 @@ const Carrito = () => {
             id={product.id} 
             vista="carrito" 
             onDelete={handleDeleteFromCart}
+            item={product}
           />
         ))}
       </div>

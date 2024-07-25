@@ -73,7 +73,7 @@ const Productos = () => {
           <button onClick={() => setIsModalOpen(true)} className='filtrar'>Filtrar</button>
         </div>
         {filteredProducts.map(product => (
-          <Producto key={product.id} id={product.id} vista="productos" />
+          <Producto key={product.id} id={product.id} vista="productos" item={product} />
         ))}
       </div>
 

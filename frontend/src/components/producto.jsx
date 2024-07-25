@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { ProductContext } from '../context/ProductContext';
 import './producto.css';
 
-const Producto = ({ id, vista }) => {
+const Producto = ({ id, vista, onEdit }) => {
   const { getProductById, addProduct, deleteProduct, editProduct } = useContext(ProductContext);
   const [cantidad, setCantidad] = useState(1);
   const product = getProductById(id);
@@ -16,12 +16,10 @@ const Producto = ({ id, vista }) => {
   };
 
   const handleEditProduct = () => {
-    
-    console.log(`Editar producto ${product.nombre}`);
+    onEdit(product);
   };
 
   const handleDeleteFromCart = () => {
-   
     console.log(`Eliminar producto ${product.nombre} del carrito`);
   };
 
@@ -36,7 +34,7 @@ const Producto = ({ id, vista }) => {
       <img src={product.imagen} alt={product.nombre} className="producto-imagen" />
       <h2 className="producto-nombre">{product.nombre}</h2>
       <p className="producto-marca">Marca: {product.marca}</p>
-      <p className="producto-precio">Precio: ${product.precio.toFixed(2)}</p>
+      <p className="producto-precio">Precio: ${product.precio}</p>
 
       {vista === 'productos' && (
         <button onClick={handleAddToCart} className="producto-agregar">Agregar al Carrito</button>

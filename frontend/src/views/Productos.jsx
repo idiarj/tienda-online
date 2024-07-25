@@ -67,7 +67,7 @@ const Productos = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button onClick={() => setIsModalOpen(true)}>Filtrar</button>
+          <button onClick={() => setIsModalOpen(true)} className='filtrar'>Filtrar</button>
         </div>
         {filteredProducts.map(product => (
           <Producto key={product.id} id={product.id} vista="productos" />

@@ -1,14 +1,16 @@
 import React, { useContext, useState } from 'react';
 import { ProductContext } from '../context/ProductContext';
+import { CartContext } from '../context/CartContext';
 import './producto.css';
 
-const Producto = ({ id, vista, onEdit }) => {
-  const { getProductById, addProduct, deleteProduct, editProduct } = useContext(ProductContext);
+const Producto = ({ id, vista, onEdit, onDelete }) => {
+  const { getProductById, addProduct, deleteProduct } = useContext(ProductContext);
+  const { addToCart, removeFromCart } = useContext(CartContext);
   const [cantidad, setCantidad] = useState(1);
   const product = getProductById(id);
 
   const handleAddToCart = () => {
-    addProduct({ ...product, cantidad });
+    addToCart({ ...product, cantidad });
   };
 
   const handleDeleteProduct = () => {
@@ -16,11 +18,12 @@ const Producto = ({ id, vista, onEdit }) => {
   };
 
   const handleEditProduct = () => {
-    onEdit(product);
+    if (onEdit) onEdit(product);
   };
 
   const handleDeleteFromCart = () => {
-    console.log(`Eliminar producto ${product.nombre} del carrito`);
+    removeFromCart(id);
+    if (onDelete) onDelete(id);
   };
 
   const handleChangeQuantity = (e) => {
@@ -32,9 +35,12 @@ const Producto = ({ id, vista, onEdit }) => {
   return (
     <div className="producto">
       <img src={product.imagen} alt={product.nombre} className="producto-imagen" />
+      <div>
       <h2 className="producto-nombre">{product.nombre}</h2>
       <p className="producto-marca">Marca: {product.marca}</p>
       <p className="producto-precio">Precio: ${product.precio}</p>
+      
+      
 
       {vista === 'productos' && (
         <button onClick={handleAddToCart} className="producto-agregar">Agregar al Carrito</button>
@@ -62,6 +68,7 @@ const Producto = ({ id, vista, onEdit }) => {
           />
         </div>
       )}
+      </div>
     </div>
   );
 };

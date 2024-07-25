@@ -6,8 +6,6 @@ import Productos from './views/Productos';
 import Vender from './views/Vender';
 import Carrito from './views/Carrito';
 import { ProductProvider } from './context/ProductContext';
-import Login from './views/Login.jsx';
-import Register from './views/Register.jsx';
 import './App.css'
 
 function App() {
@@ -17,6 +15,7 @@ function App() {
     
     <Router>
       <ProductProvider>
+      <CartProvider>
       <Navbar />
       <Routes>
         <Route path="/register" Component={Register}/>
@@ -26,7 +25,9 @@ function App() {
         <Route path="/Vender" Component={Vender} />
         <Route path="/Carrito" Component={Carrito} />
       </Routes>
+      </CartProvider>
       </ProductProvider>
+      
     </Router>
     </>
     
